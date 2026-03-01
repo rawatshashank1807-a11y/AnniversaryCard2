@@ -1,92 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Happy Anniversary</title>
+<meta charset="UTF-8">
+<title>Anniversary Card</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 body {
+    background-image: url('https://i.ibb.co/7Q5q6Q5/flowers-love-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Pacifico', cursive;
+    color: #3d2b7f;
     margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: 'Segoe UI', cursive;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    color: #4a004e;
+    overflow-x: hidden;
 }
 
-.slide {
+.page {
     display: none;
-    padding: 20px;
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 2em;
 }
 
-.active {
+.page.active {
     display: block;
 }
 
-img {
-    width: 260px;
-    border-radius: 20px;
-    margin-top: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-button {
-    margin-top: 25px;
-    padding: 10px 20px;
+.next-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #6a0dad;
+    color: white;
+    padding: 12px 25px;
+    font-size: 18px;
     border: none;
     border-radius: 25px;
-    background: #6a0572;
-    color: white;
-    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.next-button:hover {
+    transform: scale(1.1);
+    background-color: #8b2dd2;
+}
+
+#envelope {
+    text-align: center;
+    margin-top: 120px;
     cursor: pointer;
 }
 
-button:hover {
-    background: #a4508b;
+#envelope span {
+    font-size: 5em;
 }
 </style>
-
 </head>
+
 <body>
 
-<!-- Slide 1 -->
-<div class="slide active">
-    <h1>💖 Happy Anniversary Mdm Ji 💖</h1>
-    <p>You are the most special person in my life 💕</p>
-    <button onclick="nextSlide()">Next ➡</button>
+<audio id="bgMusic" src="Umraan Lameriyan - Juss.mp3" loop></audio>
+
+<div id="envelope">
+    <span>✉️</span>
+    <h2>Click me!</h2>
 </div>
 
-<!-- Slide 2 -->
-<div class="slide">
-    <img src="IMG-20250304-WA0011.jpg">
-    <p>Every moment with you is magical ✨</p>
-    <button onclick="nextSlide()">Next ➡</button>
-</div>
+<div class="page"><h1>Happy Anniversary Mera Bachaa 💕❤️</h1></div>
+<div class="page"><h2>2 March, 10 PM PDF... Kuch yaad aaya darling 🥹</h2></div>
+<div class="page"><h2>Kesa lga PDF se abtk ka safar 🎀</h2></div>
+<div class="page"><h2>Thankuuu mere life mai aane ke liye 💝</h2></div>
+<div class="page"><h2>Aapse pyaar hona mera best decision 😭🤭</h2></div>
+<div class="page"><h2>I love you Mera Bachaa 😚</h2></div>
+<div class="page"><h1>Happy Anniversary 👀🎀</h1></div>
 
-<!-- Slide 3 -->
-<div class="slide">
-    <h2>Forever With You ❤️</h2>
-    <button onclick="playMusic()">🎵 Play Our Song</button>
-</div>
-
-<audio id="music">
-    <source src="Umraan Lameriyan - Juss.mp3" type="audio/mpeg">
-</audio>
+<button class="next-button" onclick="nextPage()">Next ➡️</button>
 
 <script>
-let current = 0;
-let slides = document.querySelectorAll(".slide");
+const pages = document.querySelectorAll('.page');
+const envelope = document.getElementById('envelope');
+const music = document.getElementById('bgMusic');
+const nextBtn = document.querySelector('.next-button');
 
-function nextSlide() {
-    slides[current].classList.remove("active");
-    current++;
-    if (current >= slides.length) {
-        current = 0;
+let currentPage = 0;
+
+// Envelope click
+envelope.addEventListener('click', function(){
+    envelope.style.display = 'none';
+    pages[0].classList.add('active');
+    music.play();
+    typeText(pages[0]);
+});
+
+// Next button
+function nextPage() {
+    if(currentPage < pages.length - 1){
+        pages[currentPage].classList.remove('active');
+        currentPage++;
+        pages[currentPage].classList.add('active');
+        typeText(pages[currentPage]);
     }
-    slides[current].classList.add("active");
+
+    // Last page pe button hide
+    if(currentPage === pages.length - 1){
+        nextBtn.style.display = "none";
+    }
 }
 
-function playMusic() {
-    document.getElementById("music").play();
+// Typing animation
+function typeText(page){
+    const textEl = page.querySelector('h1, h2');
+    const fullText = textEl.innerText;
+    textEl.innerText = '';
+    let i = 0;
+    const speed = 40;
+
+    const timer = setInterval(() => {
+        textEl.innerText += fullText.charAt(i);
+        i++;
+        if(i >= fullText.length) clearInterval(timer);
+    }, speed);
 }
 </script>
 
