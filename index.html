@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Mdm Ji ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family:'Montserrat',sans-serif;
+background:radial-gradient(circle at top,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+}
+
+/* Stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+opacity:0.8;
+animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+/* Envelope */
+#envelope{
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:90px;
+cursor:pointer;
+animation: float 2s infinite alternate;
+}
+@keyframes float{
+from{transform:translate(-50%,-50%) translateY(0px);}
+to{transform:translate(-50%,-50%) translateY(15px);}
+}
+
+/* Name Glow */
+.name{
+color:#ffd700;
+text-shadow:0 0 10px gold,0 0 20px orange;
+}
+
+/* Pages */
+.page{
+display:none;
+padding:70px 20px;
+font-size:26px;
+}
+.active{
+display:block;
+animation: fade 1s;
+}
+@keyframes fade{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* Button */
+button{
+position:fixed;
+bottom:20px;
+right:20px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:white;
+color:#203a43;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* Hearts */
+.heart{
+position:absolute;
+font-size:20px;
+animation: fall linear forwards;
+}
+@keyframes fall{
+to{transform:translateY(100vh); opacity:0;}
+}
+
+/* Fireworks */
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+background:gold;
+border-radius:50%;
+animation: explode 1s ease-out forwards;
+}
+@keyframes explode{
+to{transform:scale(8); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="Umraan Lameriyan - Juss.mp3" loop></audio>
+
+<div id="envelope">💌<br><span style="font-size:18px;">Tap To Open</span></div>
+
+<div class="page"><h2 class="type">Happy Anniversary <span class="name">Mdm Ji</span> ❤️</h2></div>
+<div class="page"><h2 class="type"><span class="name">Mdm Ji</span>, From 2 March 10 PM 🥹</h2></div>
+<div class="page"><h2 class="type">From Strangers To Forever 💞</h2></div>
+<div class="page"><h2 class="type">Thank You For Choosing Me 💖</h2></div>
+<div class="page"><h2 class="type">I Promise Forever With You 💍</h2></div>
+<div class="page"><h2 class="type">You Are My Everything ✨</h2></div>
+
+<button onclick="nextPage()">Next ➡</button>
+
+<script>
+let pages=document.querySelectorAll(".page");
+let current=0;
+
+/* Stars */
+for(let i=0;i<100;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.animationDuration=(1+Math.random()*2)+"s";
+document.body.appendChild(star);
+}
+
+document.getElementById("envelope").onclick=function(){
+this.style.display="none";
+pages[0].classList.add("active");
+document.getElementById("music").play();
+typeEffect(pages[0]);
+startHearts();
+}
+
+function nextPage(){
+if(current<pages.length-1){
+pages[current].classList.remove("active");
+current++;
+pages[current].classList.add("active");
+typeEffect(pages[current]);
+if(current===pages.length-1){
+startFireworks();
+}
+}
+}
+
+function typeEffect(page){
+let el=page.querySelector(".type");
+let text=el.innerText;
+el.innerText="";
+let i=0;
+let interval=setInterval(()=>{
+el.innerText+=text.charAt(i);
+i++;
+if(i>=text.length) clearInterval(interval);
+},40);
+}
+
+function startHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerText="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(3+Math.random()*2)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},300);
+}
+
+function startFireworks(){
+for(let i=0;i<25;i++){
+let fire=document.createElement("div");
+fire.className="firework";
+fire.style.left=Math.random()*100+"vw";
+fire.style.top=Math.random()*60+"vh";
+document.body.appendChild(fire);
+setTimeout(()=>fire.remove(),1000);
+}
+}
+</script>
+
+</body>
+</html>
