@@ -8,55 +8,51 @@
 
 <style>
 body {
-    background-image: url('https://i.ibb.co/7Q5q6Q5/flowers-love-bg.jpg');
+    margin:0;
+    font-family:'Pacifico', cursive;
+    background: linear-gradient(rgba(255,192,203,0.6), rgba(255,182,193,0.6)),
+                url('https://i.ibb.co/7Q5q6Q5/flowers-love-bg.jpg');
     background-size: cover;
     background-position: center;
-    font-family: 'Pacifico', cursive;
-    color: #3d2b7f;
-    margin: 0;
-    overflow-x: hidden;
+    color:#4b0082;
+    text-align:center;
 }
 
 .page {
-    display: none;
-    text-align: center;
-    padding: 60px 20px;
-    font-size: 2em;
+    display:none;
+    padding:80px 20px;
+    font-size:2em;
+    min-height:100vh;
 }
 
 .page.active {
-    display: block;
+    display:block;
 }
 
 .next-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #6a0dad;
-    color: white;
-    padding: 12px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    z-index: 9999;
-    transition: transform 0.2s, background-color 0.3s;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#6a0dad;
+    color:white;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:18px;
 }
 
-.next-button:hover {
-    transform: scale(1.1);
-    background-color: #8b2dd2;
+.next-button:hover{
+    background:#8b2dd2;
 }
 
-#envelope {
-    text-align: center;
-    margin-top: 120px;
-    cursor: pointer;
+#envelope{
+    margin-top:150px;
+    cursor:pointer;
 }
 
-#envelope span {
-    font-size: 5em;
+#envelope span{
+    font-size:5em;
 }
 </style>
 </head>
@@ -66,17 +62,18 @@ body {
 <audio id="bgMusic" src="Umraan Lameriyan - Juss.mp3" loop></audio>
 
 <div id="envelope">
-    <span>✉️</span>
-    <h2>Click me!</h2>
+    <span>💌</span>
+    <h2>Click to Open</h2>
 </div>
 
+<!-- Slides -->
 <div class="page"><h1>Happy Anniversary Mera Bachaa 💕❤️</h1></div>
 <div class="page"><h2>2 March, 10 PM PDF... Kuch yaad aaya darling 🥹</h2></div>
 <div class="page"><h2>Kesa lga PDF se abtk ka safar 🎀</h2></div>
 <div class="page"><h2>Thankuuu mere life mai aane ke liye 💝</h2></div>
 <div class="page"><h2>Aapse pyaar hona mera best decision 😭🤭</h2></div>
 <div class="page"><h2>I love you Mera Bachaa 😚</h2></div>
-<div class="page"><h1>Happy Anniversary 👀🎀</h1></div>
+<div class="page"><h1>Forever Yours – Shashank 💖</h1></div>
 
 <button class="next-button" onclick="nextPage()">Next ➡️</button>
 
@@ -97,7 +94,7 @@ envelope.addEventListener('click', function(){
 });
 
 // Next button
-function nextPage() {
+function nextPage(){
     if(currentPage < pages.length - 1){
         pages[currentPage].classList.remove('active');
         currentPage++;
@@ -105,24 +102,26 @@ function nextPage() {
         typeText(pages[currentPage]);
     }
 
-    // Last page pe button hide
     if(currentPage === pages.length - 1){
-        nextBtn.style.display = "none";
+        nextBtn.innerText = "The End 💖";
     }
 }
 
-// Typing animation
+// Stable typing effect
 function typeText(page){
     const textEl = page.querySelector('h1, h2');
-    const fullText = textEl.innerText;
+    const fullText = textEl.dataset.text || textEl.innerText;
+    textEl.dataset.text = fullText;
     textEl.innerText = '';
     let i = 0;
-    const speed = 40;
 
-    const timer = setInterval(() => {
+    const speed = 40;
+    const interval = setInterval(() => {
         textEl.innerText += fullText.charAt(i);
         i++;
-        if(i >= fullText.length) clearInterval(timer);
+        if(i >= fullText.length){
+            clearInterval(interval);
+        }
     }, speed);
 }
 </script>
