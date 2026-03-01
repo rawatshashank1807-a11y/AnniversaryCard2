@@ -42,10 +42,6 @@ body {
     font-size:18px;
 }
 
-.next-button:hover{
-    background:#8b2dd2;
-}
-
 #envelope{
     margin-top:150px;
     cursor:pointer;
@@ -66,7 +62,6 @@ body {
     <h2>Click to Open</h2>
 </div>
 
-<!-- Slides -->
 <div class="page"><h1>Happy Anniversary Mera Bachaa 💕❤️</h1></div>
 <div class="page"><h2>2 March, 10 PM PDF... Kuch yaad aaya darling 🥹</h2></div>
 <div class="page"><h2>Kesa lga PDF se abtk ka safar 🎀</h2></div>
@@ -88,41 +83,41 @@ let currentPage = 0;
 // Envelope click
 envelope.addEventListener('click', function(){
     envelope.style.display = 'none';
-    pages[0].classList.add('active');
+    showPage(0);
     music.play();
-    typeText(pages[0]);
 });
+
+// Show page with typing effect
+function showPage(index){
+    pages.forEach(p => p.classList.remove('active'));
+    pages[index].classList.add('active');
+
+    const textEl = pages[index].querySelector('h1, h2');
+    const fullText = textEl.textContent;
+    textEl.textContent = '';
+
+    let i = 0;
+    const speed = 40;
+
+    const typing = setInterval(() => {
+        textEl.textContent += fullText.charAt(i);
+        i++;
+        if(i >= fullText.length){
+            clearInterval(typing);
+        }
+    }, speed);
+}
 
 // Next button
 function nextPage(){
     if(currentPage < pages.length - 1){
-        pages[currentPage].classList.remove('active');
         currentPage++;
-        pages[currentPage].classList.add('active');
-        typeText(pages[currentPage]);
+        showPage(currentPage);
     }
 
     if(currentPage === pages.length - 1){
         nextBtn.innerText = "The End 💖";
     }
-}
-
-// Stable typing effect
-function typeText(page){
-    const textEl = page.querySelector('h1, h2');
-    const fullText = textEl.dataset.text || textEl.innerText;
-    textEl.dataset.text = fullText;
-    textEl.innerText = '';
-    let i = 0;
-
-    const speed = 40;
-    const interval = setInterval(() => {
-        textEl.innerText += fullText.charAt(i);
-        i++;
-        if(i >= fullText.length){
-            clearInterval(interval);
-        }
-    }, speed);
 }
 </script>
 
