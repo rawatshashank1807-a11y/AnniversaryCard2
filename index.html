@@ -10,37 +10,32 @@
 body {
     margin:0;
     font-family:'Pacifico', cursive;
-    background: linear-gradient(rgba(255,192,203,0.6), rgba(255,182,193,0.6)),
-                url('https://i.ibb.co/7Q5q6Q5/flowers-love-bg.jpg');
+    background: 
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url("IMG-20250304-WA0011.jpg");
     background-size: cover;
     background-position: center;
-    color:#4b0082;
+    background-attachment: fixed;
+    color:white;
     text-align:center;
 }
 
 .page {
     display:none;
-    padding:60px 20px;
-    font-size:2em;
     min-height:100vh;
+    padding-top:35vh;
+    font-size:2em;
 }
 
 .page.active {
     display:block;
 }
 
-.page img{
-    width:250px;
-    border-radius:20px;
-    margin-top:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
-
 .next-button {
     position:fixed;
     bottom:20px;
     right:20px;
-    background:#6a0dad;
+    background:#8b2dd2;
     color:white;
     padding:12px 25px;
     border:none;
@@ -50,10 +45,9 @@ body {
 }
 
 #envelope{
-    margin-top:150px;
+    margin-top:40vh;
     cursor:pointer;
 }
-
 #envelope span{
     font-size:5em;
 }
@@ -71,13 +65,6 @@ body {
 
 <div class="page"><h1>Happy Anniversary Mera Bachaa 💕❤️</h1></div>
 <div class="page"><h2>2 March, 10 PM PDF... Kuch yaad aaya darling 🥹</h2></div>
-
-<!-- PHOTO SLIDE -->
-<div class="page">
-    <h2>Our Beautiful Memory 💖</h2>
-    <img src="IMG-20250304-WA0011.jpg" alt="Love Pic">
-</div>
-
 <div class="page"><h2>Kesa lga PDF se abtk ka safar 🎀</h2></div>
 <div class="page"><h2>Thankuuu mere life mai aane ke liye 💝</h2></div>
 <div class="page"><h2>Aapse pyaar hona mera best decision 😭🤭</h2></div>
@@ -94,17 +81,36 @@ const nextBtn = document.querySelector('.next-button');
 
 let currentPage = 0;
 
+// Envelope click
 envelope.addEventListener('click', function(){
     envelope.style.display = 'none';
     showPage(0);
     music.play();
 });
 
+// Show page with typing effect
 function showPage(index){
     pages.forEach(p => p.classList.remove('active'));
     pages[index].classList.add('active');
+
+    const textEl = pages[index].querySelector('h1, h2');
+    const fullText = textEl.dataset.text || textEl.textContent;
+    textEl.dataset.text = fullText;
+    textEl.textContent = '';
+
+    let i = 0;
+    const speed = 40;
+
+    const typing = setInterval(() => {
+        textEl.textContent += fullText.charAt(i);
+        i++;
+        if(i >= fullText.length){
+            clearInterval(typing);
+        }
+    }, speed);
 }
 
+// Next button
 function nextPage(){
     if(currentPage < pages.length - 1){
         currentPage++;
