@@ -20,13 +20,20 @@ body {
 
 .page {
     display:none;
-    padding:80px 20px;
+    padding:60px 20px;
     font-size:2em;
     min-height:100vh;
 }
 
 .page.active {
     display:block;
+}
+
+.page img{
+    width:250px;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
 .next-button {
@@ -64,11 +71,18 @@ body {
 
 <div class="page"><h1>Happy Anniversary Mera Bachaa 💕❤️</h1></div>
 <div class="page"><h2>2 March, 10 PM PDF... Kuch yaad aaya darling 🥹</h2></div>
+
+<!-- PHOTO SLIDE -->
+<div class="page">
+    <h2>Our Beautiful Memory 💖</h2>
+    <img src="IMG-20250304-WA0011.jpg" alt="Love Pic">
+</div>
+
 <div class="page"><h2>Kesa lga PDF se abtk ka safar 🎀</h2></div>
 <div class="page"><h2>Thankuuu mere life mai aane ke liye 💝</h2></div>
 <div class="page"><h2>Aapse pyaar hona mera best decision 😭🤭</h2></div>
 <div class="page"><h2>I love you Mera Bachaa 😚</h2></div>
-<div class="page"><h1>Forever Yours – Shashank 💖</h1></div>
+<div class="page"><h1>Forever Yours – Betuu 💖</h1></div>
 
 <button class="next-button" onclick="nextPage()">Next ➡️</button>
 
@@ -80,35 +94,17 @@ const nextBtn = document.querySelector('.next-button');
 
 let currentPage = 0;
 
-// Envelope click
 envelope.addEventListener('click', function(){
     envelope.style.display = 'none';
     showPage(0);
     music.play();
 });
 
-// Show page with typing effect
 function showPage(index){
     pages.forEach(p => p.classList.remove('active'));
     pages[index].classList.add('active');
-
-    const textEl = pages[index].querySelector('h1, h2');
-    const fullText = textEl.textContent;
-    textEl.textContent = '';
-
-    let i = 0;
-    const speed = 40;
-
-    const typing = setInterval(() => {
-        textEl.textContent += fullText.charAt(i);
-        i++;
-        if(i >= fullText.length){
-            clearInterval(typing);
-        }
-    }, speed);
 }
 
-// Next button
 function nextPage(){
     if(currentPage < pages.length - 1){
         currentPage++;
